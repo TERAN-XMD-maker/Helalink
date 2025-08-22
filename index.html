@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Helalink — Launching Sept 13</title>
+  <meta name="description" content="Helalink — Unlock real online earning methods. Launching Sept 13. Allow reminders for priority onboarding & launch bonuses.">
+  <style>
+    :root{
+      --bg-1:#050515; --bg-2:#0a0f2a; --glass:rgba(255,255,255,0.06);
+      --rainbow: linear-gradient(90deg,#ff0057,#ff7a00,#ffd400,#2be2a5,#00c6ff,#9b6bff,#ff0057);
+    }
+    *{box-sizing:border-box;font-family:Inter, Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:#f5faff}
+    .page{min-height:100vh;display:flex;flex-direction:column}
+
+    /* HERO */
+    .hero{position:relative;display:grid;grid-template-columns:1.2fr 480px;gap:48px;align-items:center;padding:64px;min-height:100vh}
+    #bgCanvas{position:absolute;inset:0;z-index:0}
+    .hero-content{position:relative;z-index:2}
+
+    .eyebrow{color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:.12em;margin-bottom:10px;text-transform:uppercase}
+    .big-header{font-size:44px;line-height:1.05;margin:0 0 10px;background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .typing{display:inline-block;font-weight:800;font-size:22px;color:transparent;background:var(--rainbow);-webkit-background-clip:text;background-clip:text}
+    .lead{margin-top:12px;color:rgba(231,241,255,0.85);font-size:18px;max-width:720px}
+
+    .meta{display:flex;gap:20px;align-items:center;margin-top:24px;flex-wrap:wrap}
+
+    /* Glowing countdown */
+    .countdown{display:flex;gap:12px}
+    .cd-box{position:relative;min-width:92px;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.03));text-align:center}
+    .cd-num{font-size:28px;font-weight:900;letter-spacing:1px;filter: drop-shadow(0 0 10px rgba(255,255,255,0.25));
+      background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent;animation:neon 2.2s ease-in-out infinite}
+    .cd-lbl{font-size:12px;color:rgba(255,255,255,0.7)}
+    @keyframes neon{0%,100%{text-shadow:0 0 10px rgba(255,255,255,0.25)}50%{text-shadow:0 0 24px rgba(255,255,255,0.55)}}
+
+    /* CTA */
+    .cta-wrap{display:flex;gap:14px}
+    .btn{padding:14px 22px;border-radius:999px;border:0;cursor:pointer;font-weight:800}
+    .btn-join{position:relative;background:#0b122e;color:#f5faff;border:2px solid transparent;border-image:var(--rainbow) 1;}
+    .btn-join::after{content:"";position:absolute;inset:-2px;border-radius:999px;background:var(--rainbow);filter:blur(10px);opacity:.35;z-index:-1}
+    .btn-join:hover{transform:translateY(-1px)}
+    .pulse{animation:pulse 1.4s ease-in-out infinite}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0.12)}70%{box-shadow:0 0 0 12px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+
+    /* Right panel: Rainbow circle with orbiting shine */
+    .panel{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px}
+    .logo-wrap{width:360px;height:360px;display:flex;align-items:center;justify-content:center;position:relative}
+    .logo-svg{width:300px;height:300px}
+    .logo-center{position:absolute;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none}
+    .logo-title{font-weight:900;font-size:30px;letter-spacing:6px}
+    .logo-sub{font-size:12px;color:rgba(255,255,255,0.65);margin-top:6px}
+    .orbit{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .shine{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,0.95), rgba(255,255,255,0.1));filter:blur(6px);box-shadow:0 0 24px rgba(255,255,255,0.55);transform-origin: -140px 0px;}
+    .orbit.rotate{animation:spin 5.5s linear infinite}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+    footer{padding:28px;text-align:center;color:rgba(255,255,255,0.45);font-size:13px}
+
+    @media(max-width:980px){.hero{grid-template-columns:1fr;gap:28px;padding:28px}.panel{order:-1}.logo-wrap{width:300px;height:300px}.logo-svg{width:260px;height:260px}}
+
+    /* Notify Section */
+    .notify{text-align:center;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:16px;margin:30px auto;max-width:720px;display:flex;align-items:center;gap:18px;justify-content:center}
+    .notify-box{display:flex;align-items:center;gap:14px}
+    .notify .emoji{font-size:34px;animation:bounce 1.2s infinite}
+    .notify-caption{font-size:16px;color:#fff;text-shadow:0 0 8px rgba(255,255,255,0.12);text-align:left}
+    .notify-cta{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+    .notify-small{font-size:13px;color:rgba(255,255,255,0.65)}
+    .badge{font-size:12px;padding:6px 8px;border-radius:999px;background:linear-gradient(90deg,#2be2a5,#00c6ff);color:#041229;font-weight:800}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    /* Earning Section */
+    .earning{padding:60px 20px;text-align:center}
+    .earn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px}
+    .earn-card{padding:24px;border-radius:18px;background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));font-size:18px;font-weight:900;box-shadow:0 6px 18px rgba(0,0,0,0.35);transition:transform .28s,box-shadow .28s}
+    .earn-card span{display:block;font-size:14px;font-weight:400;color:rgba(255,255,255,0.8);margin-top:10px}
+    .earn-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.45)}
+
+    /* Bots */
+    .bots{padding:60px 20px;max-width:880px;margin:auto}
+    .bot{margin:14px 0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005))}
+    .bot-q{width:100%;text-align:left;padding:16px;background:transparent;color:#fff;font-weight:800;cursor:pointer;border:none;font-size:16px}
+    .bot-q:hover{background:rgba(255,255,255,0.02)}
+    .bot-a{padding:16px;display:none;background:rgba(255,255,255,0.02);color:rgba(255,255,255,0.9);font-weight:600}
+    .bot-actions{margin-top:12px;display:flex;gap:10px}
+    .btn-ghost{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;font-weight:700;cursor:pointer}
+
+    /* small toast */
+    .toast{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,#0b122e,rgba(11,18,46,0.6));padding:12px 16px;border-radius:12px;color:#fff;box-shadow:0 12px 30px rgba(6,7,12,0.6);display:none}
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+      <div class="hero-content">
+        <div class="eyebrow">Helalink • Online Business Platform</div>
+        <h2 class="big-header">The future of online earning starts here</h2>
+        <h1><span class="typing" id="typingText" aria-hidden="true"></span></h1>
+        <p class="lead">Be among the first to access simple, real ways to earn online with Helalink. Early members get priority onboarding, insider tips, and launch bonuses. Join now before spots fill up.</p>
+
+        <div class="meta">
+          <div class="countdown" aria-live="polite">
+            <div class="cd-box"><div id="d" class="cd-num">--</div><div class="cd-lbl">Days</div></div>
+            <div class="cd-box"><div id="h" class="cd-num">--</div><div class="cd-lbl">Hours</div></div>
+            <div class="cd-box"><div id="m" class="cd-num">--</div><div class="cd-lbl">Minutes</div></div>
+            <div class="cd-box"><div id="s" class="cd-num">--</div><div class="cd-lbl">Seconds</div></div>
+          </div>
+          <div class="cta-wrap">
+            <button id="joinBtn" class="btn btn-join pulse" aria-label="Join via WhatsApp">Join Early on WhatsApp</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="logo-wrap" aria-hidden="true">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ff0057" />
+                <stop offset="16%" stop-color="#ff7a00" />
+                <stop offset="33%" stop-color="#ffd400" />
+                <stop offset="50%" stop-color="#2be2a5" />
+                <stop offset="66%" stop-color="#00c6ff" />
+                <stop offset="83%" stop-color="#9b6bff" />
+                <stop offset="100%" stop-color="#ff0057" />
+              </linearGradient>
+            </defs>
+            <g transform="translate(100,100)">
+              <circle r="78" fill="rgba(255,255,255,0.02)" stroke="url(#rainbow)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+          </svg>
+          <div class="logo-center">
+            <div class="logo-title">HELALINK</div>
+            <div class="logo-sub">Launching Sept 13</div>
+          </div>
+          <div class="orbit rotate"><div class="shine" aria-hidden="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notification Section: Browser + Signal subscribe -->
+    <section class="notify" role="region" aria-label="Launch reminders">
+      <div class="notify-box">
+        <span class="emoji" aria-hidden="true">👉</span>
+      </div>
+      <div class="notify-cta">
+        <div class="notify-caption"><strong>Get daily launch reminders + bonus alerts — choose Signal or browser.</strong></div>
+        <div class="notify-small">We’ll nudge you every day until launch and remind you about the 550 registration fee so you don’t miss priority bonuses.</div>
+      </div>
+      <div style="margin-left:18px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+        <button id="notifyBtn" class="btn btn-join pulse" aria-label="Allow browser reminders">Browser Reminders</button>
+        <button id="signalBtn" class="btn btn-join" aria-label="Subscribe via Signal">Remind me on Signal</button>
+        <div id="subBadge" class="badge" style="display:none">Subscribed</div>
+      </div>
+    </section>
+
+    <!-- Ways of Earning Section -->
+    <section class="earning">
+      <h2 class="big-header">Ways of Earning</h2>
+      <div class="earn-grid">
+        <div class="earn-card">📋 Paid Surveys<br><span>Answer quick surveys and earn instantly — flexible & simple.</span></div>
+        <div class="earn-card">👥 Referrals<br><span>Invite friends, earn commissions and unlock bonuses.</span></div>
+        <div class="earn-card">🎮 Aviator<br><span>Risk-aware mini-games for daily profit opportunities.</span></div>
+        <div class="earn-card">💻 Tasks & Training<br><span>Short tasks, guided training and micro-jobs you can do from anywhere.</span></div>
+      </div>
+    </section>
+
+    <!-- Bots Section -->
+    <section class="bots">
+      <h2 class="big-header">🤖 Smart Bots to Guide You</h2>
+
+      <div class="bot">
+        <button class="bot-q">💪 Motivation Bot: Why start an online business?</button>
+        <div class="bot-a">Financial freedom starts with small consistent steps. Helalink pairs training + small tasks so you earn while learning.<div class="bot-actions"><button class="btn-ghost" data-wa-message="I'm%20interested%20in%20joining%20-%20tell%20me%20about%20bonuses">Join via WhatsApp</button><button class="btn-ghost" data-action="more">Tell me more</button></div></div>
+      </div>
+
+      <div class="bot">
+        <button class="bot-q">📚 Training Bot: How will I learn?</button>
+        <div class="bot-a">We provide step-by-step lessons, short videos, and practice tasks. Newcomers get priority coaching during launch.<div class="bot-actions"><button class="btn-ghost" data-wa-message="How%20do%20I%20start%20the%20training%20for%20Helalink%3F">Start Training (WhatsApp)</button><button class="btn-ghost" data-action="curriculum">See curriculum</button></div></div>
+      </div>
+
+      <div class="bot">
+        <button class="bot-q">🛠 Onboarding Bot: Why pay activation fee?</button>
+        <div class="bot-a">Activation fees cover onboarding, verification & bonus pools. Think of it as capital to kickstart your micro-business. <div class="bot-actions"><button class="btn-ghost" data-wa-message="I%20want%20to%20pay%20the%20activation%20fee%20-%20how%20do%20I%20proceed%3F">Pay/Ask on WhatsApp</button></div></div>
+      </div>
+
+      <div class="bot">
+        <button class="bot-q">🤝 Support Bot: Do I need an account?</button>
+        <div class="bot-a">Yes — accounts secure your earnings, track referrals and enable payouts. Creating an account is quick and free (fee applies to activation).<div class="bot-actions"><button class="btn-ghost" data-wa-message="I%20want%20to%20create%20an%20account%20-%20what%20do%20I%20need%3F">Create account (WhatsApp)</button></div></div>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer>© 2025 Helalink • Launching September 13 • Early access via WhatsApp & Signal</footer>
+  </div>
+
+  <script>
+    // Helper: open WhatsApp with prefilled message
+    function openWhatsApp(message){
+      const phone = '254717028877';
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+    // Helper: open Signal chat (opens Signal app on mobile/desktop if installed)
+    function openSignal(){
+      const phone = '+254717028877';
+      const url = `https://signal.me/#p/${phone}`;
+      window.open(url, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Typing effect
+      const typingEl = document.getElementById('typingText');
+      const fullText = 'HELALINK — coming soon';
+      let idx = 0; const speed = 85;
+      (function type(){
+        if(idx <= fullText.length){
+          typingEl.textContent = fullText.slice(0, idx++);
+          setTimeout(type, speed);
+        }
+      })();
+
+      // Countdown
+      const d=document.getElementById('d'), h=document.getElementById('h'), m=document.getElementById('m'), s=document.getElementById('s');
+      const launch = new Date('2025-09-13T00:00:00');
+      function tick(){
+        const now = new Date();
+        let diff = launch - now;
+        if(diff <= 0){ d.textContent=h.textContent=m.textContent=s.textContent='00'; return; }
+        const days = Math.floor(diff/(1000*60*60*24)); diff%= (1000*60*60*24);
+        const hours= Math.floor(diff/(1000*60*60)); diff%= (1000*60*60);
+        const mins = Math.floor(diff/(1000*60)); diff%= (1000*60);
+        const secs = Math.floor(diff/1000);
+        d.textContent = String(days).padStart(2,'0');
+        h.textContent = String(hours).padStart(2,'0');
+        m.textContent = String(mins).padStart(2,'0');
+        s.textContent = String(secs).padStart(2,'0');
+      }
+      tick(); setInterval(tick,1000);
+
+      // WhatsApp CTA (main)
+      document.getElementById('joinBtn').addEventListener('click', ()=>{
+        openWhatsApp('Hi! I want to join Helalink early. Please send onboarding steps.');
+      });
+
+      // Background canvas (waves + particles)
+      const bg = document.getElementById('bgCanvas');
+      const g = bg.getContext('2d');
+      function resize(){ bg.width = window.innerWidth; bg.height = window.innerHeight; }
+      window.addEventListener('resize', resize); resize();
+      const particleCount = window.innerWidth < 700 ? 60 : 140;
+      const particles = Array.from({length: particleCount}, ()=>({x:Math.random()*bg.width,y:Math.random()*bg.height,r:Math.random()*1.6+0.4,vx:(Math.random()-0.5)*0.28,vy:(Math.random()-0.5)*0.28}));
+      let t=0;
+      (function draw(){
+        g.clearRect(0,0,bg.width,bg.height);
+        const grad = g.createLinearGradient(0,0,bg.width,bg.height);
+        grad.addColorStop(0,'rgba(5,6,22,0.92)'); grad.addColorStop(1,'rgba(5,12,34,0.92)');
+        g.fillStyle = grad; g.fillRect(0,0,bg.width,bg.height);
+        for(let j=0;j<3;j++){
+          g.beginPath();
+          const amp = 18 + j*16; const freq = 0.0022 + j*0.0012;
+          g.moveTo(0,bg.height/2);
+          for(let x=0;x<bg.width;x+=10){
+            const y = bg.height/2 + Math.sin((x*freq)+t*0.002+j)*amp + j*18;
+            g.lineTo(x,y);
+          }
+          g.lineTo(bg.width,bg.height); g.lineTo(0,bg.height);
+          g.fillStyle = `rgba(${40+j*35},${60+j*40},${120+j*30},0.055)`; g.fill();
+        }
+        particles.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.x<0)p.x=bg.width; if(p.x>bg.width)p.x=0; if(p.y<0)p.y=bg.height; if(p.y>bg.height)p.y=0; g.beginPath(); g.arc(p.x,p.y,p.r,0,Math.PI*2); g.fillStyle='rgba(255,255,255,0.06)'; g.fill(); });
+        t++; requestAnimationFrame(draw);
+      })();
+
+      // Bots accordion + actions
+      document.querySelectorAll('.bot-q').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const ans = btn.nextElementSibling;
+          const open = ans.style.display === 'block';
+          // close others
+          document.querySelectorAll('.bot-a').forEach(a=>a.style.display='none');
+          ans.style.display = open ? 'none' : 'block';
+          if(!open){
+            // optionally announce
+            showToast('Tip: Use the WhatsApp buttons inside answers to join quickly');
+          }
+        });
+      });
+
+      // Bot action buttons (delegated)
+      document.querySelectorAll('.bot-actions').forEach(group=>{
+        group.addEventListener('click', (e)=>{
+          const t = e.target;
+          if(t.matches('[data-wa-message]')){
+            const msg = decodeURIComponent(t.getAttribute('data-wa-message'));
+            openWhatsApp(msg);
+          } else if(t.matches('[data-action]')){
+            const a = t.getAttribute('data-action');
+            if(a === 'more') showToast('We match weekly goals with rewards — check updates in WhatsApp.');
+            if(a === 'curriculum') showToast('Curriculum: Basics → Tasks → Scaling → Referral growth.');
+          }
+        });
+      });
+
+      // Signal subscribe button
+      document.getElementById('signalBtn').addEventListener('click', ()=>{
+        // open signal chat + set flag locally so user sees badge
+        openSignal();
+        localStorage.setItem('helalink_signal_sub', 'requested');
+        document.getElementById('subBadge').style.display = 'inline-block';
+        showToast('Opened Signal — send the message to subscribe and we\'ll add you to reminders.');
+      });
+
+      // Toast helper
+      const toastEl = document.getElementById('toast');
+      let toastTimer = null;
+      function showToast(msg, ms=4200){
+        toastEl.textContent = msg; toastEl.style.display = 'block';
+        clearTimeout(toastTimer); toastTimer = setTimeout(()=>{ toastEl.style.display='none'; }, ms);
+      }
+
+      // --- Notifications scheduler ---
+      const notifyBtn = document.getElementById('notifyBtn');
+      const subBadge = document.getElementById('subBadge');
+      const LS_KEY = 'helalink_notify_sub';
+      let dailyInterval = null;
+      let scheduledTimers = [];
+
+      function updateBadge(){
+        if(localStorage.getItem('helalink_signal_sub') || Notification.permission === 'granted' || localStorage.getItem(LS_KEY) === 'granted'){
+          subBadge.style.display = 'inline-block';
+        } else { subBadge.style.display = 'none'; }
+      }
+
+      // persuasive notification messages (no amount, just activation mention)
+      const persuasiveLines = [
+        'Secure your spot: complete your activation to unlock priority onboarding & exclusive launch bonuses! 🔥',
+        'Only a few priority slots left — activate now to guarantee your bonus and fast-tracked onboarding! ⏳',
+        'Reminder: complete activation to claim your launch bonus and early payouts — don\'t miss out!',
+        'Helalink tip: activate today and get priority coaching + bonus credit during launch. Limited offer!'
+      ];
+
+      // schedule notifications: first at T = launch - 24h (one-day countdown), then 1 hour before, then at launch
+      function scheduleOneDayAndFinalAlerts(){
+        // clear existing
+        scheduledTimers.forEach(id=>clearTimeout(id)); scheduledTimers = [];
+        if(Notification.permission !== 'granted') return;
+        const now = Date.now();
+        const launchTs = new Date('2025-09-13T00:00:00').getTime();
+        const oneDayBefore = launchTs - 24*60*60*1000;
+        const oneHourBefore = launchTs - 60*60*1000;
+
+        // schedule one-day countdown (if still in future)
+        if(oneDayBefore > now){
+          const id1 = setTimeout(()=>{
+            try{ new Notification('Helalink — 24 hours to launch', {body: persuasiveLines[0]}); }catch(e){}
+            showToast('24-hour countdown: ' + persuasiveLines[0]);
+            // now that we are in last 24h, start hourly reminders every 6 hours as friendly nudges
+            startLastDayInterval();
+          }, oneDayBefore - now);
+          scheduledTimers.push(id1);
+        } else {
+          // if already within 24 hours, fire immediate notification
+          try{ new Notification('Helalink — Less than 24 hours to launch', {body: persuasiveLines[0]}); }catch(e){}
+          showToast('Less than 24 hours: ' + persuasiveLines[0]);
+          startLastDayInterval();
+        }
+
+        // schedule 1 hour before
+        if(oneHourBefore > now){
+          const id2 = setTimeout(()=>{ try{ new Notification('Helalink — 1 hour to launch', {body: persuasiveLines[1]}); }catch(e){}; showToast('1 hour to launch: ' + persuasiveLines[1]); }, oneHourBefore - now);
+          scheduledTimers.push(id2);
+        }
+        // schedule at launch
+        if(launchTs > now){
+          const id3 = setTimeout(()=>{ try{ new Notification('Helalink is Live!', {body: 'We are live — join now to claim your bonus.'}); }catch(e){}; showToast('Helalink is Live!'); }, launchTs - now);
+          scheduledTimers.push(id3);
+        }
+      }
+
+      function startLastDayInterval(){
+        // clear existing interval
+        if(dailyInterval) clearInterval(dailyInterval);
+        // send a friendly reminder every 6 hours during last 24 hours while tab is open
+        dailyInterval = setInterval(()=>{
+          const idx = Math.floor(Math.random()*persuasiveLines.length);
+          const msg = persuasiveLines[idx];
+          try{ new Notification('Helalink Reminder', {body: msg}); }catch(e){}
+          showToast(msg, 6000);
+        }, 6*60*60*1000);
+      }
+
+      // Browser notify button: request permission and start scheduling
+      notifyBtn.addEventListener('click', async ()=>{
+        if(!('Notification' in window)){
+          showToast('Browser notifications are not supported in this environment.'); return;
+        }
+        try{
+          const p = await Notification.requestPermission();
+          localStorage.setItem(LS_KEY, p);
+          if(p === 'granted'){
+            showToast('Browser reminders active — you will receive a 24-hour countdown alert and final reminders.');
+            try{ new Notification('Helalink reminders active', {body: 'You will receive the 24-hour countdown and final launch reminders.'}); }catch(e){}
+            updateBadge(); scheduleOneDayAndFinalAlerts();
+          } else if(p === 'denied'){
+            showToast('You denied browser reminders — try Signal for manual reminders.'); updateBadge();
+          } else { showToast('Permission closed. If you change your mind, press Browser Reminders again.'); updateBadge(); }
+        }catch(e){ console.error(e); showToast('Permission request failed.'); }
+      });
+
+      // If previously granted or signal requested, schedule
+      if(localStorage.getItem(LS_KEY) === 'granted' || Notification.permission === 'granted'){
+        scheduleOneDayAndFinalAlerts(); updateBadge();
+      }
+      if(localStorage.getItem('helalink_signal_sub')) updateBadge();
+
+      // Clean up on unload
+      window.addEventListener('beforeunload', ()=>{
+        if(dailyInterval) clearInterval(dailyInterval);
+        scheduledTimers.forEach(id=>clearTimeout(id));
+      });
+
+    });
+  </script>
+
+  <!--
+    Notes:
+    - This implementation provides two flows:
+      1) Browser Reminders: uses the Notification API to show the ONE-DAY countdown notification (24 hours before launch), 1-hour and launch alerts. While inside the last 24 hours, it will send friendly reminders every 6 hours while the tab is open.
+      2) Signal Reminders: opens a Signal chat (using https://signal.me/#p/<phone>). To actually send Signal messages to users across sessions requires a backend and user opt-in on the Signal side; this button opens the chat so users can message +254717028877 to be manually/automatically added to a Signal broadcast list.
+    - Persuasive notification text now mentions activation/activation fee without a numeric amount as requested.
+  -->
+
+  <!--
+    - This implementation provides two flows:
+      1) Browser Reminders: uses the Notification API to show daily reminders while the browser/tab is open.
+      2) Signal Reminders: opens a Signal chat (using https://signal.me/#p/<phone>). To actually send Signal messages to users across sessions requires a backend and user opt-in on the Signal side; this button opens Signal so users can message +254717028877 to be manually/automatically added to a Signal broadcast list.
+    - Persuasive notification text is included in the scheduled reminders (mentions the 550 registration fee as requested). Use responsibly and ensure your payment flow is secure.
+  -->
+</body>
+</html>
