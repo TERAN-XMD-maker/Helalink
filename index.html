@@ -7,47 +7,45 @@
   <meta name="description" content="Helalink — Unlock real online earning methods. Launching Sept 13. Allow reminders for priority onboarding & launch bonuses.">
   <style>
     :root{
-      --bg-1:#050515; --bg-2:#0a0f2a; --glass:rgba(255,255,255,0.06);
+      --bg-1:#050515; --bg-2:#0a0f2a;
+      --glass:rgba(255,255,255,0.06);
       --rainbow: linear-gradient(90deg,#ff0057,#ff7a00,#ffd400,#2be2a5,#00c6ff,#9b6bff,#ff0057);
     }
-    *{box-sizing:border-box;font-family:Inter, Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    *{box-sizing:border-box;font-family:Inter, Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Arial}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:#f5faff}
     .page{min-height:100vh;display:flex;flex-direction:column}
 
     /* HERO */
     .hero{position:relative;display:grid;grid-template-columns:1.2fr 480px;gap:48px;align-items:center;padding:64px;min-height:100vh;overflow:hidden}
     #bgCanvas{position:absolute;inset:0;z-index:0}
-    .hero-content{position:relative;z-index:2}
-
+    .hero-content{position:relative;z-index:3}
     .eyebrow{color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:.12em;margin-bottom:10px;text-transform:uppercase}
     .big-header{font-size:44px;line-height:1.05;margin:0 0 10px;background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent}
     .typing{display:inline-block;font-weight:800;font-size:22px;color:transparent;background:var(--rainbow);-webkit-background-clip:text;background-clip:text}
-    .lead{margin-top:12px;color:rgba(231,241,255,0.85);font-size:18px;max-width:720px}
+    .lead{margin-top:12px;color:rgba(231,241,255,0.9);font-size:18px;max-width:720px}
 
     .meta{display:flex;gap:20px;align-items:center;margin-top:24px;flex-wrap:wrap}
 
-    /* Glowing countdown */
+    /* Countdown */
     .countdown{display:flex;gap:12px}
     .cd-box{position:relative;min-width:92px;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.03));text-align:center}
-    .cd-num{font-size:28px;font-weight:900;letter-spacing:1px;filter: drop-shadow(0 0 10px rgba(255,255,255,0.25));
-      background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent;animation:neon 2.2s ease-in-out infinite}
+    .cd-num{font-size:28px;font-weight:900;letter-spacing:1px;background:var(--rainbow);-webkit-background-clip:text;background-clip:text;color:transparent;animation:neon 2.2s infinite}
     .cd-lbl{font-size:12px;color:rgba(255,255,255,0.7)}
     @keyframes neon{0%,100%{text-shadow:0 0 10px rgba(255,255,255,0.25)}50%{text-shadow:0 0 24px rgba(255,255,255,0.55)}}
 
     /* CTA */
     .cta-wrap{display:flex;gap:14px}
-    .btn{padding:14px 22px;border-radius:999px;border:0;cursor:pointer;font-weight:800}
+    .btn{padding:12px 20px;border-radius:999px;border:0;cursor:pointer;font-weight:800}
     .btn-join{position:relative;background:#0b122e;color:#f5faff;border:2px solid transparent;border-image:var(--rainbow) 1;}
     .btn-join::after{content:"";position:absolute;inset:-2px;border-radius:999px;background:var(--rainbow);filter:blur(10px);opacity:.35;z-index:-1}
-    .btn-join:hover{transform:translateY(-1px)}
-    .pulse{animation:pulse 1.4s ease-in-out infinite}
+    .pulse{animation:pulse 1.4s infinite}
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0.12)}70%{box-shadow:0 0 0 12px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
 
-    /* Right panel: Rainbow circle with orbiting shine */
-    .panel{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px}
-    .logo-wrap{width:360px;height:360px;display:flex;align-items:center;justify-content:center;position:relative}
+    /* Right panel */
+    .panel{position:relative;z-index:4;display:flex;flex-direction:column;align-items:center;gap:22px}
+    .logo-wrap{width:360px;height:360px;display:flex;align-items:center;justify-content:center;position:relative;z-index:4}
     .logo-svg{width:300px;height:300px}
-    .logo-center{position:absolute;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none;z-index:3}
+    .logo-center{position:absolute;display:flex;align-items:center;justify-content:center;flex-direction:column;pointer-events:none;z-index:6}
     .logo-title{font-weight:900;font-size:30px;letter-spacing:6px}
     .logo-sub{font-size:12px;color:rgba(255,255,255,0.65);margin-top:6px}
     .orbit{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
@@ -55,18 +53,37 @@
     .orbit.rotate{animation:spin 5.5s linear infinite}
     @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
-    /* MONEY RAIN — outside the circle, clipped by hero and removed at intro text */
-    .money-rain{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-    .bill, .coin{position:absolute;top:-80px;will-change:transform, opacity;opacity:0.95;filter: drop-shadow(0 8px 12px rgba(0,0,0,.45))}
-    .bill{width:64px;height:auto}
-    .coin{width:42px;height:auto}
-    .fadeout{transition:opacity .35s ease, transform .35s ease;opacity:0.0}
+    /* MONEY RAIN layer (outside circle) */
+    .money-rain{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+    .money-rain img{position:absolute;top:-120px;will-change:transform, opacity;filter:drop-shadow(0 10px 18px rgba(0,0,0,0.45));transition:opacity .35s}
+    .fadeout{opacity:0!important;transform:translateY(8px) !important}
 
-    footer{padding:28px;text-align:center;color:rgba(255,255,255,0.45);font-size:13px}
+    /* Notify, Earning, Bots, Toast, Footer */
+    .notify{z-index:4;text-align:center;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:16px;margin:30px auto;max-width:720px;display:flex;align-items:center;gap:18px;justify-content:center}
+    .notify .emoji{font-size:34px;animation:bounce 1.2s infinite}
+    .notify-caption{font-size:16px;color:#fff;text-shadow:0 0 8px rgba(255,255,255,0.12);text-align:left}
+    .notify-small{font-size:13px;color:rgba(255,255,255,0.65)}
+    .badge{font-size:12px;padding:6px 8px;border-radius:999px;background:linear-gradient(90deg,#2be2a5,#00c6ff);color:#041229;font-weight:800}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+    .earning{padding:36px 20px 60px 20px;text-align:center;z-index:4}
+    .earn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:18px}
+    .earn-card{padding:18px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));font-size:16px;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,0.35);transition:transform .28s}
+    .earn-card span{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,0.85);margin-top:8px}
+
+    .bots{padding:24px 20px 60px 20px;max-width:880px;margin:auto;z-index:4}
+    .bot{margin:10px 0;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005))}
+    .bot-q{width:100%;text-align:left;padding:14px;background:transparent;color:#fff;font-weight:800;cursor:pointer;border:none}
+    .bot-a{padding:12px;display:none;background:rgba(255,255,255,0.02);color:rgba(255,255,255,0.9);font-weight:600}
+    .bot-actions{margin-top:10px;display:flex;gap:8px}
+    .btn-ghost{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff;font-weight:700;cursor:pointer}
+
+    .toast{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,#0b122e,rgba(11,18,46,0.6));padding:12px 16px;border-radius:12px;color:#fff;box-shadow:0 12px 30px rgba(6,7,12,0.6);display:none;z-index:9999}
+
+    footer{padding:24px;text-align:center;color:rgba(255,255,255,0.45);font-size:13px;z-index:4}
 
     @media(max-width:980px){
       .hero{grid-template-columns:1fr;gap:28px;padding:28px}
-      .panel{order:-1}
       .logo-wrap{width:300px;height:300px}
       .logo-svg{width:260px;height:260px}
     }
@@ -74,42 +91,42 @@
 </head>
 <body>
   <div class="page">
-    <section class="hero">
+    <section class="hero" aria-label="Helalink hero">
       <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-      <!-- MONEY RAIN LAYER (outside the circle) -->
-      <div class="money-rain" id="moneyRain" aria-hidden="true"></div>
+      <!-- money rain layer (outside circle) -->
+      <div id="moneyRain" class="money-rain" aria-hidden="true"></div>
 
+      <!-- main textual area (intro). coins fade when reaching bottom of this element -->
       <div class="hero-content" id="intro">
         <div class="eyebrow">Helalink • Online Business Platform</div>
         <h2 class="big-header">The future of online earning starts here</h2>
-        <h1><span class="typing" id="typingText"></span></h1>
+        <h1><span class="typing" id="typingText" aria-hidden="true"></span></h1>
         <p class="lead">Be among the first to access simple, real ways to earn online with Helalink. Early members get priority onboarding, insider tips, and launch bonuses. Join now before spots fill up.</p>
 
         <div class="meta">
-          <div class="countdown" aria-live="polite">
+          <div class="countdown" aria-live="polite" aria-atomic="true">
             <div class="cd-box"><div id="d" class="cd-num">--</div><div class="cd-lbl">Days</div></div>
             <div class="cd-box"><div id="h" class="cd-num">--</div><div class="cd-lbl">Hours</div></div>
             <div class="cd-box"><div id="m" class="cd-num">--</div><div class="cd-lbl">Minutes</div></div>
             <div class="cd-box"><div id="s" class="cd-num">--</div><div class="cd-lbl">Seconds</div></div>
           </div>
-          <div class="cta-wrap">
-            <button id="joinBtn" class="btn btn-join pulse">Join Early on WhatsApp</button>
+
+          <div class="cta-wrap" role="group" aria-label="Primary actions">
+            <button id="joinBtn" class="btn btn-join pulse" aria-label="Join early on WhatsApp">Join Early on WhatsApp</button>
           </div>
         </div>
       </div>
 
-      <div class="panel">
-        <div class="logo-wrap" aria-hidden="true">
-          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- logo panel (circle stays clean) -->
+      <div class="panel" aria-hidden="true">
+        <div class="logo-wrap" id="logoWrap">
+          <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
             <defs>
               <linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff0057" />
-                <stop offset="16%" stop-color="#ff7a00" />
-                <stop offset="33%" stop-color="#ffd400" />
-                <stop offset="50%" stop-color="#2be2a5" />
-                <stop offset="66%" stop-color="#00c6ff" />
-                <stop offset="83%" stop-color="#9b6bff" />
+                <stop offset="0%" stop-color="#ff0057" /><stop offset="16%" stop-color="#ff7a00" />
+                <stop offset="33%" stop-color="#ffd400" /><stop offset="50%" stop-color="#2be2a5" />
+                <stop offset="66%" stop-color="#00c6ff" /><stop offset="83%" stop-color="#9b6bff" />
                 <stop offset="100%" stop-color="#ff0057" />
               </linearGradient>
             </defs>
@@ -117,229 +134,493 @@
               <circle r="78" fill="rgba(255,255,255,0.02)" stroke="url(#rainbow)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
             </g>
           </svg>
+
           <div class="logo-center">
             <div class="logo-title">HELALINK</div>
             <div class="logo-sub">Launching Sept 13</div>
           </div>
+
           <div class="orbit rotate"><div class="shine" aria-hidden="true"></div></div>
         </div>
       </div>
     </section>
 
-    <!-- (Shortened) — Keep your Notify / Ways of Earning / Bots / Footer from earlier build below if you want -->
-    <footer>© 2025 Helalink • Launching September 13 • Early access via WhatsApp</footer>
+    <!-- Notification & Subscribe -->
+    <section class="notify" aria-label="Launch reminders">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="emoji" aria-hidden="true">👉</div>
+      </div>
+      <div style="text-align:left">
+        <div class="notify-caption"><strong>Get daily launch reminders + bonus alerts — choose Signal or browser.</strong></div>
+        <div class="notify-small">We’ll nudge you at the 24-hour countdown, 1 hour before launch, and when we go live. (Browser notifications work while the tab is open.)</div>
+      </div>
+      <div style="margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+        <button id="notifyBtn" class="btn btn-join pulse" aria-label="Allow browser reminders">Browser Reminders</button>
+        <button id="signalBtn" class="btn btn-join" aria-label="Subscribe via Signal">Remind me on Signal</button>
+        <div id="subBadge" class="badge" style="display:none">Subscribed</div>
+      </div>
+    </section>
+
+    <!-- Ways of earning -->
+    <section class="earning" aria-label="Ways of earning">
+      <h2 class="big-header">Ways of Earning</h2>
+      <div class="earn-grid" role="list">
+        <div class="earn-card" role="listitem">▶️ Watching YouTube Videos<br><span>Est: KSh 2k/day · KSh 14k/week</span></div>
+        <div class="earn-card" role="listitem">▶️ Watching TikTok Videos<br><span>Est: KSh 2k/day · KSh 14k/week</span></div>
+        <div class="earn-card" role="listitem">▶️ Watching Instagram Videos<br><span>Est: KSh 1.5k/day · KSh 10.5k/week</span></div>
+        <div class="earn-card" role="listitem">▶️ Clicking Netflix Ads<br><span>Est: KSh 3k/day · KSh 21k/week</span></div>
+        <div class="earn-card" role="listitem">🎮 Aviator (Mini-games)<br><span>Est: KSh 5k/day · KSh 35k/week (higher risk)</span></div>
+        <div class="earn-card" role="listitem">😂 Creating Memes<br><span>Est: KSh 2k/day · KSh 14k/week</span></div>
+        <div class="earn-card" role="listitem">✍️ Academic Writing<br><span>Est: KSh 7k/day · KSh 49k/week</span></div>
+        <div class="earn-card" role="listitem">🤝 Affiliate Marketing<br><span>Est: KSh 5k/day · KSh 35k/week</span></div>
+        <div class="earn-card" role="listitem">📋 Surveys<br><span>Est: KSh 1k/day · KSh 7k/week</span></div>
+        <div class="earn-card" role="listitem">🎁 Welcome Bonus<br><span>One-time credit: KSh 1k–5k (bonus on signup)</span></div>
+      </div>
+      <p style="text-align:center;color:rgba(255,255,255,0.7);margin-top:12px;font-size:13px">Earnings shown are estimates in Kenyan Shillings (KSh). Results vary by effort, location, and market conditions.</p>
+    </section>
+
+    <!-- Bots -->
+    <section class="bots" aria-label="Guides and bots">
+      <h2 class="big-header">🤖 Smart Bots to Guide You</h2>
+
+      <div class="bot">
+        <button class="bot-q">💪 Motivation Bot: Why start an online business?</button>
+        <div class="bot-a">Financial freedom starts with small, consistent steps. Helalink pairs training + short tasks so you earn while learning.
+          <div class="bot-actions">
+            <button class="btn-ghost" data-wa-message="I'm%20interested%20in%20joining%20-%20tell%20me%20about%20bonuses">Join via WhatsApp</button>
+            <button class="btn-ghost" data-action="more">Tell me more</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bot">
+        <button class="bot-q">📚 Training Bot: How will I learn?</button>
+        <div class="bot-a">Step-by-step lessons, short videos, and practice tasks. Newcomers get priority coaching during launch.
+          <div class="bot-actions">
+            <button class="btn-ghost" data-wa-message="How%20do%20I%20start%20the%20training%20for%20Helalink%3F">Start Training (WhatsApp)</button>
+            <button class="btn-ghost" data-action="curriculum">See curriculum</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bot">
+        <button class="bot-q">🛠 Onboarding Bot: Why pay activation fee?</button>
+        <div class="bot-a">Activation powers onboarding, verification & bonus pools — it helps us fast-track your setup.
+          <div class="bot-actions">
+            <button class="btn-ghost" data-wa-message="I%20want%20to%20pay%20the%20activation%20fee%20-%20how%20do%20I%20proceed%3F">Pay / Ask on WhatsApp</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bot">
+        <button class="bot-q">🤝 Support Bot: Do I need an account?</button>
+        <div class="bot-a">Yes — accounts secure your earnings, track affiliate activity and enable payouts. Creating an account is quick and free (activation required).
+          <div class="bot-actions">
+            <button class="btn-ghost" data-wa-message="I%20want%20to%20create%20an%20account%20-%20what%20do%20I%20need%3F">Create account (WhatsApp)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <footer>© 2025 Helalink • Launching September 13 • Early access via WhatsApp & Signal</footer>
   </div>
 
   <script>
-    /* ====== Helper: Open WhatsApp ====== */
-    function openWhatsApp(message){
-      const phone = '254717028877';
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
+  // -----------------------
+  // Helpers: open WhatsApp & Signal
+  // -----------------------
+  function openWhatsApp(message){
+    const phone = '254717028877';
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
+  function openSignal(){
+    const phone = '+254717028877';
+    const url = `https://signal.me/#p/${phone}`;
+    window.open(url, '_blank');
+  }
+
+  // -----------------------
+  // Typing + Countdown
+  // -----------------------
+  document.addEventListener('DOMContentLoaded', ()=>{
+    // Typing
+    const typingEl = document.getElementById('typingText');
+    const fullText = 'HELALINK — coming soon';
+    let i = 0, speed = 85;
+    (function type(){ if(i <= fullText.length){ typingEl.textContent = fullText.slice(0, i++); setTimeout(type, speed); } })();
+
+    // Countdown
+    const d=document.getElementById('d'), h=document.getElementById('h'), m=document.getElementById('m'), s=document.getElementById('s');
+    const launch = new Date('2025-09-13T00:00:00');
+    function tick(){
+      const now = new Date(); let diff = launch - now;
+      if(diff <= 0){ d.textContent=h.textContent=m.textContent=s.textContent='00'; return; }
+      const days = Math.floor(diff/(1000*60*60*24)); diff%= (1000*60*60*24);
+      const hours= Math.floor(diff/(1000*60*60)); diff%= (1000*60*60);
+      const mins = Math.floor(diff/(1000*60)); diff%= (1000*60);
+      const secs = Math.floor(diff/1000);
+      d.textContent = String(days).padStart(2,'0');
+      h.textContent = String(hours).padStart(2,'0');
+      m.textContent = String(mins).padStart(2,'0');
+      s.textContent = String(secs).padStart(2,'0');
+    }
+    tick(); setInterval(tick,1000);
+  });
+
+  // -----------------------
+  // Background canvas (waves + particles)
+  // -----------------------
+  const bg = document.getElementById('bgCanvas');
+  const g = bg.getContext('2d');
+  function resizeCanvas(){ bg.width = window.innerWidth; bg.height = window.innerHeight; }
+  window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+  const particleCount = window.innerWidth < 700 ? 60 : 140;
+  const particles = Array.from({length: particleCount}, ()=>({
+    x:Math.random()*bg.width,
+    y:Math.random()*bg.height,
+    r:Math.random()*1.6+0.4,
+    vx:(Math.random()-0.5)*0.28,
+    vy:(Math.random()-0.5)*0.28
+  }));
+  let tFrame = 0;
+  (function draw(){
+    g.clearRect(0,0,bg.width,bg.height);
+    const grad = g.createLinearGradient(0,0,bg.width,bg.height);
+    grad.addColorStop(0,'rgba(5,6,22,0.92)'); grad.addColorStop(1,'rgba(5,12,34,0.92)');
+    g.fillStyle = grad; g.fillRect(0,0,bg.width,bg.height);
+    for(let j=0;j<3;j++){
+      g.beginPath();
+      const amp = 18 + j*16; const freq = 0.0022 + j*0.0012;
+      g.moveTo(0,bg.height/2);
+      for(let x=0;x<bg.width;x+=10){
+        const y = bg.height/2 + Math.sin((x*freq)+tFrame*0.002+j)*amp + j*18;
+        g.lineTo(x,y);
+      }
+      g.lineTo(bg.width,bg.height); g.lineTo(0,bg.height);
+      g.fillStyle = `rgba(${40+j*35},${60+j*40},${120+j*30},0.055)`; g.fill();
+    }
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=bg.width; if(p.x>bg.width)p.x=0;
+      if(p.y<0)p.y=bg.height; if(p.y>bg.height)p.y=0;
+      g.beginPath(); g.arc(p.x,p.y,p.r,0,Math.PI*2); g.fillStyle='rgba(255,255,255,0.06)'; g.fill();
+    });
+    tFrame++; requestAnimationFrame(draw);
+  })();
+
+  // -----------------------
+  // Money SVG assets (data URIs) — generic coin and banknote (no currency label)
+  // -----------------------
+  const COIN_URI = "data:image/svg+xml;utf8," + encodeURIComponent(`
+    <svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'>
+      <defs>
+        <radialGradient id='g1' cx='35%' cy='30%' r='70%'>
+          <stop offset='0%' stop-color='#FFF9D6'/>
+          <stop offset='60%' stop-color='#FFD54A'/>
+          <stop offset='100%' stop-color='#FFB300'/>
+        </radialGradient>
+      </defs>
+      <circle cx='48' cy='48' r='42' fill='url(#g1)' stroke='#E0A800' stroke-width='4'/>
+      <ellipse cx='36' cy='34' rx='8' ry='5' fill='rgba(255,255,255,0.6)'/>
+    </svg>
+  `);
+
+  const NOTE_URI = "data:image/svg+xml;utf8," + encodeURIComponent(`
+    <svg xmlns='http://www.w3.org/2000/svg' width='140' height='88' viewBox='0 0 140 88'>
+      <defs>
+        <linearGradient id='bg' x1='0' x2='1'>
+          <stop offset='0%' stop-color='#E9FBD6'/>
+          <stop offset='100%' stop-color='#B9EEA6'/>
+        </linearGradient>
+      </defs>
+      <rect x='2' y='2' width='136' height='84' rx='12' ry='12' fill='url(#bg)' stroke='#6EC27A' stroke-width='3'/>
+      <ellipse cx='70' cy='44' rx='20' ry='16' fill='rgba(0,0,0,0.06)'/>
+      <circle cx='22' cy='26' r='6' fill='rgba(0,0,0,0.08)'/>
+    </svg>
+  `);
+
+  // -----------------------
+  // Money rain logic (spawns outside circle, fades when reaches intro bottom)
+  // -----------------------
+  (function moneyRain(){
+    const rain = document.getElementById('moneyRain');
+    const intro = document.getElementById('intro');
+    const logoWrap = document.getElementById('logoWrap');
+    const joinBtn = document.getElementById('joinBtn');
+
+    // config
+    const MAX_ACTIVE = 70;
+    const SPAWN_DELAY = window.innerWidth < 700 ? 900 : 520;
+
+    let spawnTimer = null;
+
+    function getContainerRect(){
+      return rain.getBoundingClientRect();
+    }
+    function getIntroBottom(){
+      const r = intro.getBoundingClientRect();
+      const base = getContainerRect();
+      return r.bottom - base.top; // y threshold relative to rain
+    }
+    function getCircleRect(){
+      const r = logoWrap.getBoundingClientRect();
+      const base = getContainerRect();
+      return { x: r.left - base.left, y: r.top - base.top, w: r.width, h: r.height };
     }
 
-    /* ====== Typing + Countdown (unchanged) ====== */
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const typingEl = document.getElementById('typingText');
-      const fullText = 'HELALINK — coming soon';
-      let idx = 0; const speed = 85;
-      (function type(){
-        if(idx <= fullText.length){
-          typingEl.textContent = fullText.slice(0, idx++);
-          setTimeout(type, speed);
-        }
-      })();
-
-      const d=document.getElementById('d'), h=document.getElementById('h'), m=document.getElementById('m'), s=document.getElementById('s');
-      const launch = new Date('2025-09-13T00:00:00');
-      function tick(){
-        const now = new Date();
-        let diff = launch - now;
-        if(diff <= 0){ d.textContent=h.textContent=m.textContent=s.textContent='00'; return; }
-        const days = Math.floor(diff/(1000*60*60*24)); diff%= (1000*60*60*24);
-        const hours= Math.floor(diff/(1000*60*60)); diff%= (1000*60*60);
-        const mins = Math.floor(diff/(1000*60)); diff%= (1000*60);
-        const secs = Math.floor(diff/1000);
-        d.textContent = String(days).padStart(2,'0');
-        h.textContent = String(hours).padStart(2,'0');
-        m.textContent = String(mins).padStart(2,'0');
-        s.textContent = String(secs).padStart(2,'0');
+    function randomXAvoidCircle(width){
+      const W = rain.clientWidth;
+      const circle = getCircleRect();
+      const padding = 36;
+      let x = Math.random() * (W - width);
+      // avoid overlapping circle (attempt a few times)
+      let tries = 0;
+      while(x + width > circle.x - padding && x < circle.x + circle.w + padding && tries < 10){
+        x = Math.random() * (W - width);
+        tries++;
       }
-      tick(); setInterval(tick,1000);
-    });
+      return Math.max(6, Math.min(x, W - width - 6));
+    }
 
-    /* ====== Background Canvas (waves) ====== */
-    const bg = document.getElementById('bgCanvas');
-    const g = bg.getContext('2d');
-    function resize(){ bg.width = window.innerWidth; bg.height = window.innerHeight; }
-    window.addEventListener('resize', resize); resize();
-    const particleCount = window.innerWidth < 700 ? 60 : 140;
-    const particles = Array.from({length: particleCount}, ()=>({x:Math.random()*bg.width,y:Math.random()*bg.height,r:Math.random()*1.6+0.4,vx:(Math.random()-0.5)*0.28,vy:(Math.random()-0.5)*0.28}));
-    let t=0;
-    (function draw(){
-      g.clearRect(0,0,bg.width,bg.height);
-      const grad = g.createLinearGradient(0,0,bg.width,bg.height);
-      grad.addColorStop(0,'rgba(5,6,22,0.92)'); grad.addColorStop(1,'rgba(5,12,34,0.92)');
-      g.fillStyle = grad; g.fillRect(0,0,bg.width,bg.height);
-      for(let j=0;j<3;j++){
-        g.beginPath();
-        const amp = 18 + j*16; const freq = 0.0022 + j*0.0012;
-        g.moveTo(0,bg.height/2);
-        for(let x=0;x<bg.width;x+=10){
-          const y = bg.height/2 + Math.sin((x*freq)+t*0.002+j)*amp + j*18;
-          g.lineTo(x,y);
-        }
-        g.lineTo(bg.width,bg.height); g.lineTo(0,bg.height);
-        g.fillStyle = `rgba(${40+j*35},${60+j*40},${120+j*30},0.055)`; g.fill();
-      }
-      particles.forEach(p=>{ p.x+=p.vx; p.y+=p.vy;
-        if(p.x<0)p.x=bg.width; if(p.x>bg.width)p.x=0; if(p.y<0)p.y=bg.height; if(p.y>bg.height)p.y=0;
-        g.beginPath(); g.arc(p.x,p.y,p.r,0,Math.PI*2); g.fillStyle='rgba(255,255,255,0.06)'; g.fill(); });
-      t++; requestAnimationFrame(draw);
-    })();
-
-    /* ====== Polished SVG assets (no currency label) ====== */
-    const COIN_URI =
-      "data:image/svg+xml;utf8," + encodeURIComponent(`
-        <svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'>
-          <defs>
-            <radialGradient id='g1' cx='35%' cy='30%' r='70%'>
-              <stop offset='0%' stop-color='#FFF7C8'/>
-              <stop offset='55%' stop-color='#FFD54A'/>
-              <stop offset='100%' stop-color='#FFB300'/>
-            </radialGradient>
-            <linearGradient id='rim' x1='0' x2='1'>
-              <stop offset='0%' stop-color='#FFED9A'/>
-              <stop offset='100%' stop-color='#E0A800'/>
-            </linearGradient>
-          </defs>
-          <circle cx='48' cy='48' r='42' fill='url(#rim)'/>
-          <circle cx='48' cy='48' r='36' fill='url(#g1)'/>
-          <circle cx='48' cy='48' r='28' fill='none' stroke='rgba(0,0,0,0.08)' stroke-width='2'/>
-          <ellipse cx='36' cy='34' rx='8' ry='5' fill='rgba(255,255,255,0.55)'/>
-        </svg>
-      `);
-
-    const NOTE_URI =
-      "data:image/svg+xml;utf8," + encodeURIComponent(`
-        <svg xmlns='http://www.w3.org/2000/svg' width='140' height='88' viewBox='0 0 140 88'>
-          <defs>
-            <linearGradient id='b' x1='0' x2='1'>
-              <stop offset='0%' stop-color='#E9FBD6'/>
-              <stop offset='100%' stop-color='#B9EEA6'/>
-            </linearGradient>
-          </defs>
-          <rect x='2' y='2' width='136' height='84' rx='12' ry='12' fill='url(#b)' stroke='#6EC27A' stroke-width='3'/>
-          <ellipse cx='70' cy='44' rx='20' ry='16' fill='rgba(0,0,0,0.06)'/>
-          <circle cx='22' cy='26' r='8' fill='rgba(0,0,0,0.08)'/>
-          <circle cx='118' cy='62' r='8' fill='rgba(0,0,0,0.08)'/>
-        </svg>
-      `);
-
-    /* ====== Money Rain (outside the circle) ====== */
-    (function(){
-      const rain = document.getElementById('moneyRain');
-      const intro = document.getElementById('intro');
-      const joinBtn = document.getElementById('joinBtn');
-      const logoWrap = document.querySelector('.logo-wrap');
-
-      const maxActive = 60;
-      const spawnEvery = window.innerWidth < 700 ? 850 : 520; // ms
-      let spawnTimer;
-
-      function getIntroBottom(){
-        const r = intro.getBoundingClientRect();
-        const containerTop = rain.getBoundingClientRect().top;
-        return r.bottom - containerTop; // y threshold (relative to rain)
-      }
-      function getCircleRect(){
-        const r = logoWrap.getBoundingClientRect();
-        const base = rain.getBoundingClientRect();
-        return { x: r.left - base.left, y: r.top - base.top, w: r.width, h: r.height };
-      }
-
-      function makeEl(){
+    function spawnOne(){
+      try{
+        if(rain.childElementCount > MAX_ACTIVE) return;
+        const isNote = Math.random() < 0.46;
         const el = document.createElement('img');
-        const isBill = Math.random() < 0.45;
-        el.src = isBill ? NOTE_URI : COIN_URI;
-        el.className = isBill ? 'bill' : 'coin';
-
-        const W = rain.clientWidth;
-        const circle = getCircleRect();
-
-        // choose a random X that does NOT overlap the circle (keep ~40px padding)
-        let x = Math.random() * (W - 80);
-        const padding = 40;
-        const overlapsCircle = () => (
-          x > circle.x - padding &&
-          x < circle.x + circle.w + padding
-        );
-        let tries = 0;
-        while(overlapsCircle() && tries < 8){
-          x = Math.random() * (W - 80);
-          tries++;
-        }
+        el.src = isNote ? NOTE_URI : COIN_URI;
+        el.className = isNote ? 'bill' : 'coin';
+        el.style.width = isNote ? (40 + Math.random()*30) + 'px' : (28 + Math.random()*18) + 'px';
+        const w = parseFloat(el.style.width);
+        // choose x that avoids circle area
+        const x = randomXAvoidCircle(w);
         el.style.left = x + 'px';
+        el.style.opacity = '1';
 
-        // random rotation & speed
-        const rot = (Math.random()*360)|0;
-        const drift = (Math.random()*120 - 60); // horizontal drift over the fall
-        const duration = (isBill ? 5200 : 4200) + Math.random()*1800;
+        const drift = (Math.random()*90 - 45); // horizontal drift during fall
+        const rotStart = (Math.random()*360)|0;
+        const duration = (isNote ? 4400 : 3600) + Math.random()*1800;
 
-        // physics-ish animation via JS (keeps removal threshold simple)
         const start = performance.now();
-        const thresholdY = getIntroBottom() - 10; // disappear when hitting intro caption
+        const thresholdY = getIntroBottom() - 6;
 
-        function step(now){
-          const p = Math.min(1, (now - start) / duration);
-          // ease-out fall
-          const y = -80 + (thresholdY + 120) * (p*p * (3 - 2*p));
-          const xNow = x + drift * p;
-          const rNow = rot + (isBill ? (p*280) : (p*540));
-          el.style.transform = `translate3d(${xNow}px, ${y}px, 0) rotate(${rNow}deg)`;
+        function animate(now){
+          const t = Math.min(1, (now - start)/duration);
+          // ease-out cubic
+          const ease = 1 - Math.pow(1 - t, 3);
+          const y = -120 + (thresholdY + 140) * ease;
+          const xNow = x + drift * ease;
+          const rotation = rotStart + (isNote ? ease*260 : ease*560);
+          el.style.transform = `translate3d(${xNow}px, ${y}px, 0) rotate(${rotation}deg)`;
           if(y >= thresholdY){
             el.classList.add('fadeout');
-            setTimeout(()=>el.remove(), 320);
+            setTimeout(()=>{ if(el.parentNode) el.remove(); }, 380);
             return;
           }
           if(!document.body.contains(el)) return;
-          requestAnimationFrame(step);
+          requestAnimationFrame(animate);
         }
-        requestAnimationFrame(step);
 
         rain.appendChild(el);
-        // cleanup if still around after long time
-        setTimeout(()=>{ if(el.parentNode) el.remove(); }, duration + 1500);
+        requestAnimationFrame(animate);
+        // safety cleanup
+        setTimeout(()=>{ if(el.parentNode) el.remove(); }, duration + 2000);
+      }catch(e){ /* ignore */ }
+    }
+
+    // public burst (n items)
+    function burst(n=28){
+      for(let i=0;i<n;i++){
+        setTimeout(spawnOne, i*35 + Math.random()*120);
+      }
+    }
+
+    // start regular spawn
+    spawnTimer = setInterval(spawnOne, SPAWN_DELAY);
+
+    // small burst on logo hover
+    logoWrap.addEventListener('mouseenter', ()=> burst(8) );
+
+    // burst on join button & open WhatsApp
+    joinBtn.addEventListener('click', ()=>{
+      burst(36);
+      openWhatsApp('Hi! I want to join Helalink early. Please send onboarding steps.');
+    });
+
+    // make bot WA buttons trigger burst + WA
+    document.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.matches('[data-wa-message]')){
+        burst(12);
+        const encoded = t.getAttribute('data-wa-message') || '';
+        openWhatsApp(decodeURIComponent(encoded));
+      }
+    });
+
+    // pause spawn when tab hidden
+    document.addEventListener('visibilitychange', ()=>{
+      if(document.hidden){
+        clearInterval(spawnTimer); spawnTimer = null;
+      } else {
+        if(!spawnTimer) spawnTimer = setInterval(spawnOne, SPAWN_DELAY);
+      }
+    });
+
+    // cleanup on unload
+    window.addEventListener('beforeunload', ()=>{ if(spawnTimer) clearInterval(spawnTimer); });
+  })();
+
+
+  // -----------------------
+  // Toast helper
+  // -----------------------
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function showToast(msg, ms=4200){
+    toastEl.textContent = msg;
+    toastEl.style.display = 'block';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>{ toastEl.style.display = 'none'; }, ms);
+  }
+
+  // -----------------------
+  // Notifications scheduler (one-day countdown, 1 hour before, launch)
+  // -----------------------
+  (function notifications(){
+    const notifyBtn = document.getElementById('notifyBtn');
+    const signalBtn = document.getElementById('signalBtn');
+    const subBadge = document.getElementById('subBadge');
+    const LS_KEY = 'helalink_notify_sub';
+    const SIGNAL_KEY = 'helalink_signal_sub';
+    let scheduledTimers = [];
+    let lastDayInterval = null;
+
+    const persuasiveLines = [
+      'Secure your spot: complete activation to unlock priority onboarding & exclusive launch bonuses!',
+      'Only a few priority slots left — activate now to guarantee your bonus and fast-tracked onboarding!',
+      'Reminder: complete activation to claim your launch bonus and early access — don’t miss out!',
+      'Helalink tip: activate today and get priority coaching + bonus credit during launch. Limited offer!'
+    ];
+
+    function updateBadge(){
+      if(localStorage.getItem(SIGNAL_KEY) || Notification.permission === 'granted' || localStorage.getItem(LS_KEY) === 'granted'){
+        subBadge.style.display = 'inline-block';
+      } else subBadge.style.display = 'none';
+    }
+
+    function clearScheduled(){ scheduledTimers.forEach(id=>clearTimeout(id)); scheduledTimers = []; if(lastDayInterval) clearInterval(lastDayInterval); lastDayInterval = null; }
+
+    function scheduleOneDayAndFinalAlerts(){
+      clearScheduled();
+      if(Notification.permission !== 'granted') return;
+      const now = Date.now();
+      const launchTs = new Date('2025-09-13T00:00:00').getTime();
+      const oneDayBefore = launchTs - 24*60*60*1000;
+      const oneHourBefore = launchTs - 60*60*1000;
+
+      // 24-hour
+      if(oneDayBefore > now){
+        const id1 = setTimeout(()=>{
+          try{ new Notification('Helalink — 24 hours to launch', {body: persuasiveLines[0]}); }catch(e){}
+          showToast('24-hour countdown: ' + persuasiveLines[0]);
+          startLastDayInterval();
+        }, oneDayBefore - now);
+        scheduledTimers.push(id1);
+      } else {
+        try{ new Notification('Helalink — Less than 24 hours to launch', {body: persuasiveLines[0]}); }catch(e){}
+        showToast('Less than 24 hours: ' + persuasiveLines[0]);
+        startLastDayInterval();
       }
 
-      function spawn(){
-        if(rain.childElementCount > maxActive) return;
-        makeEl();
+      // 1 hour
+      if(oneHourBefore > now){
+        const id2 = setTimeout(()=>{
+          try{ new Notification('Helalink — 1 hour to launch', {body: persuasiveLines[1]}); }catch(e){}
+          showToast('1 hour to launch: ' + persuasiveLines[1]);
+        }, oneHourBefore - now);
+        scheduledTimers.push(id2);
       }
 
-      function burst(n=26){
-        for(let i=0;i<n;i++){
-          setTimeout(makeEl, i*35);
+      // launch
+      if(launchTs > now){
+        const id3 = setTimeout(()=>{
+          try{ new Notification('Helalink is Live!', {body: 'We are live — join now to claim your bonus.'}); }catch(e){}
+          showToast('Helalink is Live!');
+        }, launchTs - now);
+        scheduledTimers.push(id3);
+      }
+    }
+
+    function startLastDayInterval(){
+      if(lastDayInterval) clearInterval(lastDayInterval);
+      lastDayInterval = setInterval(()=>{
+        const idx = Math.floor(Math.random()*persuasiveLines.length);
+        const msg = persuasiveLines[idx];
+        try{ new Notification('Helalink Reminder', {body: msg}); }catch(e){}
+        showToast(msg, 6000);
+      }, 6*60*60*1000); // every 6 hours while tab is open
+    }
+
+    notifyBtn.addEventListener('click', async ()=>{
+      if(!('Notification' in window)){
+        showToast('Notifications are not supported in this browser.');
+        return;
+      }
+      try{
+        const p = await Notification.requestPermission();
+        localStorage.setItem(LS_KEY, p);
+        if(p === 'granted'){
+          showToast('Browser reminders active — you will receive the 24-hour alert and final reminders.');
+          try{ new Notification('Helalink reminders active', {body: 'You will receive a 24-hour countdown and final launch reminders.'}); }catch(e){}
+          updateBadge(); scheduleOneDayAndFinalAlerts();
+        } else if(p === 'denied'){
+          showToast('You denied browser reminders — try Signal for manual reminders.');
+          updateBadge();
+        } else {
+          showToast('Permission dialog closed. Click again to allow.');
+          updateBadge();
         }
+      }catch(err){ console.error(err); showToast('Permission request failed.'); }
+    });
+
+    signalBtn.addEventListener('click', ()=>{
+      openSignal();
+      localStorage.setItem(SIGNAL_KEY, 'requested');
+      updateBadge();
+      showToast('Opened Signal — message us to be added to reminders.');
+    });
+
+    // initialize if previously granted
+    if(localStorage.getItem(LS_KEY) === 'granted' || Notification.permission === 'granted') scheduleOneDayAndFinalAlerts();
+    if(localStorage.getItem(SIGNAL_KEY)) updateBadge();
+
+    window.addEventListener('beforeunload', ()=>{ clearScheduled(); });
+  })();
+
+  // -----------------------
+  // Bots accordion & actions (delegated)
+  // -----------------------
+  (function bots(){
+    document.querySelectorAll('.bot-q').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const ans = btn.nextElementSibling;
+        const open = ans.style.display === 'block';
+        document.querySelectorAll('.bot-a').forEach(a=>a.style.display='none');
+        ans.style.display = open ? 'none' : 'block';
+      });
+    });
+
+    // bot-actions handled in moneyRain click listener for WA buttons (we already open WA and burst there)
+    document.addEventListener('click', (e)=>{
+      if(e.target.matches('[data-action]')){
+        const act = e.target.getAttribute('data-action');
+        if(act === 'more') showToast('We match weekly goals with rewards — check updates in WhatsApp.');
+        if(act === 'curriculum') showToast('Curriculum: Basics → Tasks → Scaling → Referral growth.');
       }
-
-      // start rain
-      spawnTimer = setInterval(spawn, spawnEvery);
-      // hover mini-burst
-      logoWrap.addEventListener('mouseenter', ()=>burst(8));
-      // join button burst + WhatsApp
-      joinBtn.addEventListener('click', ()=>{
-        burst(34);
-        openWhatsApp('Hi! I want to join Helalink early. Please send onboarding steps.');
-      });
-
-      // keep thresholds fresh on resize/orientation
-      window.addEventListener('resize', ()=>{ /* nothing needed, we read bounds live */ });
-      document.addEventListener('visibilitychange', ()=>{
-        if(document.hidden){ clearInterval(spawnTimer); }
-        else{ spawnTimer = setInterval(spawn, spawnEvery); }
-      });
-    })();
+    });
+  })();
   </script>
 </body>
 </html>
