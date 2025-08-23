@@ -186,7 +186,7 @@
         <div class="earn-card">📋 Surveys<br><span>Est: KSh 1k/day · KSh 7k/week</span></div>
         <div class="earn-card">🎁 Welcome Bonus<br><span>One-time credit: KSh 1k–5k (bonus on signup)</span></div>
       </div>
-      <p style="text-align:center;color:rgba(255,255,255,0.7);margin-top:18px;font-size:14px">Earnings shown are estimates in Kenyan Shillings (KSh) and depend on effort, location, and market conditions. Results may vary.</p>
+      <p style="text-align:center;color:rgba(255,255,255,0.7);margin-top:18px;font-size:14px">Earnings shown are estimates and depend on effort, location, and market conditions. Results may vary.</p>
     </section>
 
     <!-- Bots Section -->
@@ -208,6 +208,11 @@
         <div class="bot-a">Activation fees cover onboarding, verification & bonus pools. Think of it as capital to kickstart your micro-business. <div class="bot-actions"><button class="btn-ghost" data-wa-message="I%20want%20to%20pay%20the%20activation%20fee%20-%20how%20do%20I%20proceed%3F">Pay/Ask on WhatsApp</button></div></div>
       </div>
 
+      <div class="bot">
+        <button class="bot-q">🤔Where can i get more information? </button>
+      <div class="bot-a">You can get more information about the business through our official channel. <div class="bot-actions" ><button class="btn-ghost"
+data-wa-message="https://whatsapp.com/channel/0029VbBTufM4dTnJSyzvxg1V">Follow our channel (WhatsApp)</button></div>
+     </div>
       <div class="bot">
         <button class="bot-q">🤝 Support Bot: Do I need an account?</button>
         <div class="bot-a">Yes — accounts secure your earnings, track affiliate activity and enable payouts. Creating an account is quick and free (fee applies to activation).<div class="bot-actions"><button class="btn-ghost" data-wa-message="I%20want%20to%20create%20an%20account%20-%20what%20do%20I%20need%3F">Create account (WhatsApp)</button></div></div>
@@ -236,7 +241,7 @@
     document.addEventListener('DOMContentLoaded', ()=>{
       // Typing effect
       const typingEl = document.getElementById('typingText');
-      const fullText = 'HELALINK — coming soon';
+      const fullText = 'HELALINK — coming soon book your slot on WhatsApp';
       let idx = 0; const speed = 85;
       (function type(){
         if(idx <= fullText.length){
@@ -268,7 +273,7 @@
       joinBtn.addEventListener('click', ()=>{
         // coin burst when user presses Join
         createBurst(18);
-        openWhatsApp('Hi! I want to join Helalink early. Please send onboarding steps.');
+        openWhatsApp('Hi! Please keep my spot ready,i will join you on 13 September.');
       });
 
       // Background canvas (waves + particles)
