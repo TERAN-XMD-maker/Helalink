@@ -101,6 +101,87 @@
   </style>
 </head>
 <body>
+<!-- Recent Members Section -->
+<section class="joined-section">
+  <h2>🎉 Recent Members Joined</h2>
+  <div class="joined-list">
+    <ul id="membersList"></ul>
+  </div>
+</section>
+
+<style>
+  .joined-section {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 40px auto;
+    max-width: 700px;
+  }
+
+  .joined-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .joined-list {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    height: 180px;
+    position: relative;
+  }
+
+  .joined-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    animation: scrollList 15s linear infinite;
+  }
+
+  .joined-list li {
+    padding: 10px;
+    margin: 5px 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    backdrop-filter: blur(4px);
+  }
+
+  @keyframes scrollList {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+</style>
+
+<script>
+  // Countries list
+  const countries = ["Ghana", "Kenya", "Uganda", "Botswana", "Malawi", "Cameroon"];
+
+  // Function to generate random masked ID
+  function generateId() {
+    return "******" + Math.floor(1000 + Math.random() * 9000);
+  }
+
+  // Generate 15 random members
+  const membersList = document.getElementById("membersList");
+  for (let i = 0; i < 15; i++) {
+    const li = document.createElement("li");
+    const country = countries[Math.floor(Math.random() * countries.length)];
+    li.textContent = `${generateId()} from ${country} joined the team`;
+    membersList.appendChild(li);
+  }
+
+  // Duplicate list for smooth infinite scroll
+  membersList.innerHTML += membersList.innerHTML;
+</script>
+
   <div class="page">
     <section class="hero">
       <canvas id="bgCanvas" aria-hidden="true"></canvas>
