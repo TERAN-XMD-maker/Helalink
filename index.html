@@ -99,6 +99,18 @@
     .toast{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,#0b122e,rgba(11,18,46,0.6));padding:12px 16px;border-radius:12px;color:#fff;box-shadow:0 12px 30px rgba(6,7,12,0.6);display:none}
 
   </style>
+
+  <!-- PushAlert -->
+  <script type="text/javascript">
+  (function(d, t) {
+      var g = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      g.src = "https://cdn.pushalert.co/integrate_f8875402a4aca47d9757f70a9b7f7dd4.js";
+      s.parentNode.insertBefore(g, s);
+  }(document, "script"));
+  </script>
+  <!-- End PushAlert -->
+
 </head>
 <body>
   <div class="page">
@@ -426,7 +438,7 @@
   function showNextMember() {
     index = (index + 1) % members.length;
     const nextData = members[index];
-    
+
     // Highlight update (crossfade)
     if (active === 1) {
       renderMember(member2, nextData);
@@ -671,7 +683,7 @@ data-wa-message="https://whatsapp.com/channel/0029VbBTufM4dTnJSyzvxg1V">Follow o
 
       // Signal subscribe button
       document.getElementById('signalBtn').addEventListener('click', ()=>{
-        openSignal(); localStorage.setItem('helalink_signal_sub', 'requested'); document.getElementById('subBadge').style.display = 'inline-block'; showToast('Opened Signal — send the message to subscribe and we\'ll add you to reminders.');
+        openSignal(); localStorage.setItem('helalink_signal_sub', 'requested'); document.getElementById('subBadge').style.display = 'inline-block'; showToast('Opened Signal — send the message to subscribe and we\\'ll add you to reminders.');
       });
 
       // Toast helper
@@ -679,28 +691,26 @@ data-wa-message="https://whatsapp.com/channel/0029VbBTufM4dTnJSyzvxg1V">Follow o
       let toastTimer = null;
       function showToast(msg, ms=4200){ toastEl.textContent = msg; toastEl.style.display = 'block'; clearTimeout(toastTimer); toastTimer = setTimeout(()=>{ toastEl.style.display='none'; }, ms); }
 
-      // Notifications scheduler (unchanged)
+      // Browser Reminders button — let PushAlert library handle permission prompt.
       const notifyBtn = document.getElementById('notifyBtn');
-      const subBadge = document.getElementById('subBadge');
-      const LS_KEY = 'helalink_notify_sub';
-      let dailyInterval = null; let scheduledTimers = [];
-      function updateBadge(){ if(localStorage.getItem('helalink_signal_sub') || Notification.permission === 'granted' || localStorage.getItem(LS_KEY) === 'granted'){ subBadge.style.display = 'inline-block'; } else { subBadge.style.display = 'none'; } }
-      const persuasiveLines = [ 'Secure your spot: complete your activation to unlock priority onboarding & exclusive launch bonuses! 🔥', 'Only a few priority slots left — activate now to guarantee your bonus and fast-tracked onboarding! ⏳', 'Reminder: complete activation to claim your launch bonus and early payouts — don\'t miss out!', 'Helalink tip: activate today and get priority coaching + bonus credit during launch. Limited offer!' ];
-      function scheduleOneDayAndFinalAlerts(){ scheduledTimers.forEach(id=>clearTimeout(id)); scheduledTimers = []; if(Notification.permission !== 'granted') return; const now = Date.now(); const launchTs = new Date('2025-09-13T00:00:00').getTime(); const oneDayBefore = launchTs - 24*60*60*1000; const oneHourBefore = launchTs - 60*60*1000; if(oneDayBefore > now){ const id1 = setTimeout(()=>{ try{ new Notification('Helalink — 24 hours to launch', {body: persuasiveLines[0]}); }catch(e){} showToast('24-hour countdown: ' + persuasiveLines[0]); startLastDayInterval(); }, oneDayBefore - now); scheduledTimers.push(id1); } else { try{ new Notification('Helalink — Less than 24 hours to launch', {body: persuasiveLines[0]}); }catch(e){} showToast('Less than 24 hours: ' + persuasiveLines[0]); startLastDayInterval(); } if(oneHourBefore > now){ const id2 = setTimeout(()=>{ try{ new Notification('Helalink — 1 hour to launch', {body: persuasiveLines[1]}); }catch(e){}; showToast('1 hour to launch: ' + persuasiveLines[1]); }, oneHourBefore - now); scheduledTimers.push(id2); } if(launchTs > now){ const id3 = setTimeout(()=>{ try{ new Notification('Helalink is Live!', {body: 'We are live — join now to claim your bonus.'}); }catch(e){}; showToast('Helalink is Live!'); }, launchTs - now); scheduledTimers.push(id3); } }
-      function startLastDayInterval(){ if(dailyInterval) clearInterval(dailyInterval); dailyInterval = setInterval(()=>{ const idx = Math.floor(Math.random()*persuasiveLines.length); const msg = persuasiveLines[idx]; try{ new Notification('Helalink Reminder', {body: msg}); }catch(e){} showToast(msg, 6000); }, 6*60*60*1000); }
-      notifyBtn.addEventListener('click', async ()=>{ if(!('Notification' in window)){ showToast('Browser notifications are not supported in this environment.'); return; } try{ const p = await Notification.requestPermission(); localStorage.setItem(LS_KEY, p); if(p === 'granted'){ showToast('Browser reminders active — you will receive a 24-hour countdown alert and final reminders.'); try{ new Notification('Helalink reminders active', {body: 'You will receive the 24-hour countdown and final launch reminders.'}); }catch(e){} updateBadge(); scheduleOneDayAndFinalAlerts(); } else if(p === 'denied'){ showToast('You denied browser reminders — try Signal for manual reminders.'); updateBadge(); } else { showToast('Permission closed. If you change your mind, press Browser Reminders again.'); updateBadge(); } }catch(e){ console.error(e); showToast('Permission request failed.'); } });
-      if(localStorage.getItem(LS_KEY) === 'granted' || Notification.permission === 'granted'){ scheduleOneDayAndFinalAlerts(); updateBadge(); }
-      if(localStorage.getItem('helalink_signal_sub')) updateBadge();
-      window.addEventListener('beforeunload', ()=>{ if(dailyInterval) clearInterval(dailyInterval); scheduledTimers.forEach(id=>clearTimeout(id)); if(coinTimer) clearInterval(coinTimer); });
+      notifyBtn.addEventListener('click', ()=>{
+        // If PushAlert global is available, call its subscribe method (PushAlert exposes a `pushalert` object when integrated).
+        try {
+          if(window.pushalert && typeof window.pushalert.subscribe === 'function'){
+            window.pushalert.subscribe();
+            document.getElementById('subBadge').style.display = 'inline-block';
+            showToast('Browser reminders: permission prompt opened (check browser).');
+          } else {
+            // Fallback: show message — the PushAlert loader will normally auto-initialize and show prompts
+            showToast('If the browser prompt doesn\\'t appear, ensure notifications are allowed for this site.');
+          }
+        } catch(err){
+          console.warn('PushAlert subscribe error', err);
+          showToast('Could not open browser permission prompt. Check console for details.');
+        }
+      });
 
     });
   </script>
-
-  <!--
-    Notes:
-    - Money drop is a visual effect: coins and notes drop inside the circle area. Coins/notes are DOM elements created with CSS animations and removed after animation ends.
-    - Burst is triggered when user clicks "Join Early on WhatsApp" and when pressing WhatsApp buttons inside bot replies.
-    - For production, you can replace CSS shapes with PNG/SVG assets for richer visuals.
-  -->
 </body>
 </html>
