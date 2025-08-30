@@ -228,6 +228,7 @@
   width: 100%;
   height: 500px; /* banner height */
   overflow: hidden;
+  background: #000; /* background behind images */
 }
 
 .full-image-carousel .slide {
@@ -246,7 +247,8 @@
 .full-image-carousel img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* show full image without cropping */
+  background: #000;    /* fill gaps with black */
 }
 
 /* Controls */
@@ -397,6 +399,7 @@ document.querySelector(".prev").addEventListener("click", () => {
 showSlide(currentSlide);
 startCarousel();
 </script>
+
 
 
       <div class="rocket-viewport relative glass p-6" aria-hidden="true">
